@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Your Location Coords</p>
+    <button onclick="myLocation()">Location</button>
+    <p id="demo"></p>
+    <script>
+        var loc = document.getElementById("demo");
+
+        function myLocation(){
+            if( navigator.geolocation ){
+                navigator.geolocation.getCurrentPosition(showPosition, showError )
+            }else{
+                loc.innerHTML = "location access denied";
+            }
+        }
+
+        function showPosition(position){
+            loc.innerHTML = "altitude: " + position.coords.altitude + "<br>accuracy: " + position.coords.accuracy;
+        }
+
+        function showError(error){
+            switch (error.code){
+                case error.PERMISSION_DENIED:
+                    loc.innerHTML = "User denied the request for Geolocation."
+                    break;
+
+                case error.POSITION_UNAVAILABLE:
+                    loc.innerHTML = "Location information is unavailable."
+                    break;
+                
+                case error.TIMEOUT:
+                    loc.innerHTML = "The request to get user location timed out."
+                    break;
+
+                case error.UNKNOWN_ERROR:
+                    loc.innerHTML = "An Unknown error accquired."
+                    break;
+            }
+        }
+
+    </script>
+
+</body>
+</html>
